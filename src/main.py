@@ -9,6 +9,7 @@ stoppoint_codes = stop_points.json()
 for s in stoppoint_codes:
     print(s['stationNaptan'])
     print(s['commonName'])
+    print(f"towards {s['additionalProperties'][1]['value']}")
 
 for p in route_json:
     if p['expectedArrival'] <= p['timeToLive']:
