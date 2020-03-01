@@ -1,12 +1,19 @@
 import requests
 import pprint
 
-request = requests.get('https://api.tfl.gov.uk/line/24/route/sequence/outbound')
+request = requests.get('https://api.tfl.gov.uk/StopPoint/490014138S/Arrivals')
 route_json = request.json()
 
-for p in route_json['stations']:
-    for l in p['lines']:
-        if p['lines'][0]['id'] == '24':
-            print(p['name'])
+for p in route_json:
+    if p['expectedArrival'] <= p['timeToLive']:
+        print(f"The {p['lineName']}")
+        print(f"arriving at {p['stationName']}")
+        print(f"towards {p['towards']}")
+        print('is on time')
+    else:
+        print(f"The {p['lineName']}")
+        print(f"arriving at {p['stationName']}")
+        print(f"towards {p['towards']}")
+        print('is late')
 
-# pprint.pprint(route_json['stations'])
+# pprint.pprint(route_json)
